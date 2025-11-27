@@ -12,7 +12,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
-import { updateUserRole, linkStudentToMentor } from './actions'
+import { updateUserRole, linkStudentToMentor } from '@/app/admin/actions'
 import { Search, UserCog, Link as LinkIcon } from 'lucide-react'
 import {
     Dialog,

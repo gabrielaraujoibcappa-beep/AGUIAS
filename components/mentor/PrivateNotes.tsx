@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area' // Assuming ScrollArea exists or I'll use div
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Loader2, Save } from 'lucide-react'

@@ -47,7 +47,7 @@ export function ActionPlanWidget() {
                     }
                     return a.status === 'pending' ? -1 : 1
                 })
-                setGoals(sorted)
+                setGoals(sorted as Goal[])
             }
         }
         setIsLoading(false)
@@ -91,7 +91,7 @@ export function ActionPlanWidget() {
             }
             return a.status === 'pending' ? -1 : 1
         })
-        setGoals(updatedGoals)
+        setGoals(updatedGoals as Goal[])
 
         const { error } = await supabase
             .from('goals')

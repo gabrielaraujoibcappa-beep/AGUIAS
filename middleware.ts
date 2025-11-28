@@ -40,6 +40,32 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(url)
     }
 
+    // Role-based access control
+    if (user) {
+        // Get user profile to check role
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .single()
+
+        const userRole = profile?.role
+
+        // Prevent students from accessing mentor area
+        if (request.nextUrl.pathname.startsWith('/mentor') && userRole !== 'mentor') {
+            const url = request.nextUrl.clone()
+            url.pathname = '/dashboard'
+            return NextResponse.redirect(url)
+        }
+
+        // Prevent non-admins from accessing admin area
+        if (request.nextUrl.pathname.startsWith('/admin') && userRole !== 'admin') {
+            const url = request.nextUrl.clone()
+            url.pathname = '/dashboard'
+            return NextResponse.redirect(url)
+        }
+    }
+
     return supabaseResponse
 }
 

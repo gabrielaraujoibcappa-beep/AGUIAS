@@ -20,7 +20,7 @@ export default async function LoginPage({
                 <div className="relative z-10">
                     <div className="flex items-center gap-2 font-bold text-xl tracking-tighter">
                         <Rocket className="h-6 w-6" />
-                        <span>VIBE MENTORIA</span>
+                        <span>AGUIAS</span>
                     </div>
                 </div>
                 <div className="relative z-10 max-w-md">
@@ -30,7 +30,7 @@ export default async function LoginPage({
                     <footer className="mt-4 text-slate-400 font-medium">— Pelé</footer>
                 </div>
                 <div className="relative z-10 text-xs text-slate-500">
-                    &copy; 2024 Vibe Mentoria. All rights reserved.
+                    &copy; 2025 Aguias Mentoria. All rights reserved.
                 </div>
             </div>
 

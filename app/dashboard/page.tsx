@@ -17,6 +17,17 @@ export default async function DashboardPage() {
         redirect('/login')
     }
 
+    // Check user role - redirect mentors to their page
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+    if (profile?.role === 'mentor') {
+        redirect('/mentor')
+    }
+
     // Fetch check-ins
     const { data: checkins } = await supabase
         .from('checkins')

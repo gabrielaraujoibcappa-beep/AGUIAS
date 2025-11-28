@@ -17,16 +17,9 @@ export default async function AdminPage() {
         .eq('id', user.id)
         .single()
 
-    // Allow access if role is 'mentor' (acting as admin for now)
-    if (currentUserProfile?.role !== 'mentor') {
-        return (
-            <div className="flex min-h-screen items-center justify-center">
-                <div className="text-center">
-                    <h1 className="text-2xl font-bold text-red-600">Acesso Negado</h1>
-                    <p className="text-slate-600">Você não tem permissão para acessar esta página.</p>
-                </div>
-            </div>
-        )
+    // Allow access only for admin and mentor roles
+    if (currentUserProfile?.role !== 'admin' && currentUserProfile?.role !== 'mentor') {
+        redirect('/dashboard')
     }
 
     // Fetch all profiles

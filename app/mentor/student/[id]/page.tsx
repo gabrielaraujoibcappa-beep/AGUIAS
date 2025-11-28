@@ -19,6 +19,17 @@ export default async function StudentDetailsPage({ params }: PageProps) {
         redirect('/login')
     }
 
+    // Verify user is a mentor
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .single()
+
+    if (profile?.role !== 'mentor') {
+        redirect('/dashboard')
+    }
+
     // Fetch student profile
     const { data: student, error: studentError } = await supabase
         .from('profiles')

@@ -7,7 +7,6 @@ import { checkinSchema, CheckinFormData } from '@/lib/validations/checkin'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Form } from '@/components/ui/form'
-import { useLocalStorage } from '@/hooks/use-local-storage'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 
@@ -42,9 +41,24 @@ const steps: Step[] = [
 
 export function CheckinWizard() {
     const [currentStep, setCurrentStep] = React.useState(1)
-    const [storedData, setStoredData] = useLocalStorage<Partial<CheckinFormData>>('checkin-form-draft', {})
+    const [isClient, setIsClient] = React.useState(false)
     const router = useRouter()
     const supabase = createClient()
+
+    // Load stored data only on client
+    const [storedData, setStoredData] = React.useState<Partial<CheckinFormData>>({})
+
+    React.useEffect(() => {
+        setIsClient(true)
+        const saved = localStorage.getItem('checkin-form-draft')
+        if (saved) {
+            try {
+                setStoredData(JSON.parse(saved))
+            } catch (e) {
+                console.error('Error parsing saved data:', e)
+            }
+        }
+    }, [])
 
     const form = useForm<CheckinFormData>({
         resolver: zodResolver(checkinSchema) as any,
@@ -59,11 +73,13 @@ export function CheckinWizard() {
 
     // Auto-save effect
     React.useEffect(() => {
+        if (!isClient) return
+
         const subscription = form.watch((value) => {
-            setStoredData(value as Partial<CheckinFormData>)
+            localStorage.setItem('checkin-form-draft', JSON.stringify(value))
         })
         return () => subscription.unsubscribe()
-    }, [form, setStoredData])
+    }, [form, isClient])
 
     const nextStep = async () => {
         const fields = steps[currentStep - 1].fields
@@ -124,7 +140,7 @@ export function CheckinWizard() {
 
             console.log('Insert success:', insertData)
 
-            setStoredData({})
+            localStorage.removeItem('checkin-form-draft')
             router.push('/dashboard')
 
         } catch (error: any) {

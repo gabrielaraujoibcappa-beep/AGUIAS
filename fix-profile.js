@@ -56,7 +56,7 @@ async function fixProfile() {
             email: 'dev@vibe.com',
             full_name: 'Developer User',
             role: 'student',
-            avatar_url: 'https://github.com/shadcn.png'
+            // avatar_url: 'https://github.com/shadcn.png'
         });
 
     if (profileError) {

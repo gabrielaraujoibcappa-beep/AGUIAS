@@ -14,7 +14,7 @@ export default async function OnboardingPage() {
             <div className="max-w-md mx-auto">
                 <div className="text-center">
                     <h2 className="text-3xl font-extrabold text-gray-900">
-                        Welcome to Vibe Mentoria
+                     Mentoria
                     </h2>
                     <p className="mt-2 text-sm text-gray-600">
                         Let's set up your profile.

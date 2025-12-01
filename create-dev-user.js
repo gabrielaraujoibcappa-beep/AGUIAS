@@ -79,7 +79,7 @@ async function createDevUser() {
                 email: email,
                 full_name: 'Developer User',
                 role: 'student',
-                avatar_url: 'https://github.com/shadcn.png'
+                // avatar_url: 'https://github.com/shadcn.png'
             });
 
         if (profileError) {

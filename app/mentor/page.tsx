@@ -2,6 +2,9 @@ import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
 import { DashboardStats } from '@/components/mentor/DashboardStats'
 import { StudentsTable } from '@/components/mentor/StudentsTable'
+import { signout } from '@/app/login/actions'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export default async function MentorPage() {
     const supabase = await createClient()
@@ -19,6 +22,7 @@ export default async function MentorPage() {
         .single()
 
     if (profile?.role !== 'mentor') {
+        console.log('Access denied to mentor page. User:', user.id, 'Role:', profile?.role)
         redirect('/dashboard')
     }
 
@@ -87,6 +91,18 @@ export default async function MentorPage() {
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Painel do Mentor</h1>
                         <p className="text-slate-500 text-sm">Visão Geral da Mentoria</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <Link href="/admin">
+                            <Button variant="outline" className="text-slate-600 hover:text-slate-900">
+                                Admin
+                            </Button>
+                        </Link>
+                        <form action={signout}>
+                            <Button variant="outline" type="submit" className="text-slate-600 hover:text-slate-900">
+                                Sair
+                            </Button>
+                        </form>
                     </div>
                 </div>
 

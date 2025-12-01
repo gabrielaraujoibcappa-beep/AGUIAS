@@ -15,7 +15,7 @@ export default function Home() {
       <div className="max-w-6xl w-full">
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold text-white mb-4">
-            Quiz Mentoria
+            Aquias
           </h1>
           <p className="text-slate-300 text-lg">
             Selecione uma página para navegar

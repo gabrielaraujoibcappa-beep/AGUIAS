@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local scripts
+create-*-user.js
+fix-*.js
+check-*.js
+test-*.js
+debug-*.js
+verify-*.js

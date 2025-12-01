@@ -16,7 +16,7 @@ export default async function SignupPage({
         <div className="min-h-screen grid lg:grid-cols-2">
             {/* Left Column: Brand/Aesthetic */}
             <div className="hidden lg:flex flex-col justify-between bg-slate-900 p-12 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+                {/* Background image removed */}
                 <div className="relative z-10">
                     <div className="flex items-center gap-2 font-bold text-xl tracking-tighter">
                         <Rocket className="h-6 w-6" />

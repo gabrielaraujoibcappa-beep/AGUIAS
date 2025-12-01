@@ -10,7 +10,7 @@ begin
     new.id, 
     new.email, 
     coalesce(new.raw_user_meta_data->>'full_name', 'New User'),
-    coalesce(new.raw_user_meta_data->>'avatar_url', 'https://github.com/shadcn.png'),
+    coalesce(new.raw_user_meta_data->>'avatar_url', null),
     'student' -- Default to student, we update to mentor later
   )
   on conflict (id) do update set

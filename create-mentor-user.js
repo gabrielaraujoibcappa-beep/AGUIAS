@@ -79,7 +79,7 @@ async function createMentorUser() {
                 email: email,
                 full_name: 'Mentor User',
                 role: 'mentor',
-                avatar_url: 'https://github.com/shadcn.png'
+                // avatar_url: 'https://github.com/shadcn.png'
             });
 
         if (profileError) {

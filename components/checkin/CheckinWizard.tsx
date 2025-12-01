@@ -48,18 +48,6 @@ export function CheckinWizard() {
     // Load stored data only on client
     const [storedData, setStoredData] = React.useState<Partial<CheckinFormData>>({})
 
-    React.useEffect(() => {
-        setIsClient(true)
-        const saved = localStorage.getItem('checkin-form-draft')
-        if (saved) {
-            try {
-                setStoredData(JSON.parse(saved))
-            } catch (e) {
-                console.error('Error parsing saved data:', e)
-            }
-        }
-    }, [])
-
     const form = useForm<CheckinFormData>({
         resolver: zodResolver(checkinSchema) as any,
         defaultValues: {
@@ -70,6 +58,26 @@ export function CheckinWizard() {
         },
         mode: 'onChange',
     })
+
+    React.useEffect(() => {
+        setIsClient(true)
+        const saved = localStorage.getItem('checkin-form-draft')
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved)
+                setStoredData(parsed)
+                // Reset form with stored data once loaded
+                form.reset({
+                    traffic_invested: false,
+                    content_calendar_used: false,
+                    ai_prompts_used: false,
+                    ...parsed,
+                })
+            } catch (e) {
+                console.error('Error parsing saved data:', e)
+            }
+        }
+    }, [form])
 
     // Auto-save effect
     React.useEffect(() => {
@@ -143,14 +151,17 @@ export function CheckinWizard() {
             localStorage.removeItem('checkin-form-draft')
             router.push('/dashboard')
 
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('Error submitting checkin:', error)
-            console.error('Error message:', error?.message)
-            console.error('Error stack:', error?.stack)
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+            const errorStack = error instanceof Error ? error.stack : undefined
+
+            console.error('Error message:', errorMessage)
+            console.error('Error stack:', errorStack)
             if (typeof error === 'object' && error !== null) {
                 console.error('Error details:', JSON.stringify(error, null, 2))
             }
-            alert(`Erro ao enviar check-in: ${error?.message || 'Erro desconhecido'}`)
+            alert(`Erro ao enviar check-in: ${errorMessage}`)
         }
     }
 
